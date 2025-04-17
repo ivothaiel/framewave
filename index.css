@@ -148,6 +148,8 @@ body {
 .hero-text {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
@@ -208,24 +210,6 @@ body {
     background-color: rgba(255,255,255,0.1);
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    animation: bounce 2s infinite;
-    cursor: pointer;
-}
-
-.scroll-indicator i {
-    font-size: 1.5rem;
-}
-
 /* Section title styles */
 .section-title {
     text-align: center;
@@ -266,12 +250,16 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    transition: all 0.5s ease;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     grid-row: span 1;
     filter: brightness(0.6) contrast(0.9);
     opacity: 0.8;
-    border: 1px solid rgba(255,255,255,0.1);
+    transform-origin: center;
+    will-change: transform, filter, opacity, box-shadow;
 }
 
 /* Tetris-like sizing for different images */
@@ -297,7 +285,6 @@ body {
     z-index: 1;
     filter: brightness(0.8) contrast(1);
     opacity: 1;
-    border-color: var(--pine-green);
 }
 
 .view-more {
@@ -475,4 +462,40 @@ body {
         flex-wrap: wrap;
         gap: 1rem;
     }
+}
+
+/* Header scroll effects */
+.header.scroll-down {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.header.scroll-up {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+/* Fade-in animation */
+.fade-in {
+    opacity: 1 !important;
+}
+
+/* Newsletter form focus states */
+.newsletter-form input:focus {
+    outline: none;
+    border-color: var(--pine-green);
+    box-shadow: 0 0 0 2px rgba(45, 90, 39, 0.2);
+}
+
+/* Button hover effects */
+.cta-button:hover,
+.secondary-button:hover,
+.view-more-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Remove scroll indicator styles */
+.scroll-indicator {
+    display: none;
 }
